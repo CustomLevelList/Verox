@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101019">
+<title>Nexora — Play. Create. Explore.</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #101019;
+  --panel: #191925;
+  --panel2: #222231;
+  --text: #ffffff;
+  --muted: #9999ad;
+  --accent: #9166ff;
+  --border: #303040;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+nav {
+  height: 72px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: #14141f;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  font-size: 21px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+  transition: .2s;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 11px 19px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn:hover {
+  filter: brightness(1.15);
+}
+
+main {
+  max-width: 1250px;
+  margin: auto;
+  padding: 45px 30px;
+}
+
+.hero {
+  background:
+    radial-gradient(ellipse at 85% 15%, #6841ba77, transparent 45%),
+    linear-gradient(120deg, #211c39, #171725 75%);
+  border: 1px solid #37304f;
+  border-radius: 18px;
+  padding: 65px 55px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "✦";
+  position: absolute;
+  right: 12%;
+  top: 10px;
+  font-size: 180px;
+  color: #ffffff0b;
+  transform: rotate(20deg);
+}
+
+.eyebrow {
+  color: #bba4ff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 13px;
+  max-width: 600px;
+}
+
+.hero p {
+  color: #b2b0c2;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.hero .btn {
+  width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  margin-top: 45px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 21px;
+}
+
+.section-header span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.search {
+  margin-top: 30px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 14px 17px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  font-size: 14px;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.game {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  overflow: hidden;
+  transition: .2s;
+}
+
+.game:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.game-art {
+  height: 155px;
+  display: grid;
+  place-items: center;
+  font-size: 55px;
+}
+
+.art-1 { background: linear-gradient(135deg,#503c92,#201d3d); }
+.art-2 { background: linear-gradient(135deg,#207e77,#142e3c); }
+.art-3 { background: linear-gradient(135deg,#a75b35,#44252c); }
+.art-4 { background: linear-gradient(135deg,#346a9b,#1d294c); }
+
+.game-info {
+  padding: 15px;
+}
+
+.game-info h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.game-info p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.game-info button {
+  margin-top: 13px;
+  width: 100%;
+  padding: 9px;
+  border-radius: 7px;
+  background: #302747;
+  color: #c8b5ff;
+  border: 1px solid #57427e;
+  font-weight: 700;
+}
+
+.game-info button:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--muted);
+  padding: 9px 17px;
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+.category.active,
+.category:hover {
+  background: #392b60;
+  color: white;
+  border-color: var(--accent);
+}
+
+.empty {
+  display: none;
+  color: var(--muted);
+  text-align: center;
+  padding: 35px;
+  grid-column: 1 / -1;
+}
+
+footer {
+  margin-top: 70px;
+  padding: 35px 7%;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+@media(max-width: 850px) {
+  .games { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+}
+
+@media(max-width: 500px) {
+  nav { padding: 0 15px; }
+  main { padding: 25px 15px; }
+  .hero { padding: 40px 25px; }
+  .games { gap: 10px; }
+  .game-art { height: 115px; }
+  .nav-actions .btn { padding: 9px 11px; font-size: 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">✦</div>
+    NEXORA
+  </div>
+
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#discover">Discover</a>
+    <a href="#categories">Categories</a>
+    <a href="#create">Create</a>
+  </div>
+
+  <div class="nav-actions">
+    <button class="btn" onclick="alert('Authentication coming soon!')">
+      Log in
+    </button>
+    <button class="btn btn-primary" onclick="alert('Registration coming soon!')">
+      Sign up
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">YOUR WORLD. YOUR RULES.</div>
+    <h1>Play. Create. Explore.</h1>
+    <p>
+      Discover incredible experiences, meet new people,
+      and create worlds of your own.
+    </p>
+    <button class="btn btn-primary"
+      onclick="document.querySelector('#discover').scrollIntoView({behavior:'smooth'})">
+      Explore games →
+    </button>
+  </section>
+
+  <div class="search">
+    <span>⌕</span>
+    <input id="searchInput" type="text"
+      placeholder="Search for games...">
+  </div>
+
+  <section class="section" id="discover">
+    <div class="section-header">
+      <h2>Discover experiences</h2>
+      <span>Find your next adventure</span>
+    </div>
+
+    <div class="categories" id="categories">
+      <button class="category active" data-category="All">All</button>
+      <button class="category" data-category="Adventure">Adventure</button>
+      <button class="category" data-category="Simulation">Simulation</button>
+      <button class="category" data-category="Racing">Racing</button>
+      <button class="category" data-category="Survival">Survival</button>
+    </div>
+
+    <div class="games" id="gameGrid">
+
+      <article class="game" data-name="Dungeon Quest"
+        data-category="Adventure">
+        <div class="game-art art-1">⚔️</div>
+        <div class="game-info">
+          <h3>Dungeon Quest</h3>
+          <p>Adventure · Coming soon</p>
+          <button onclick="playGame('dungeon-quest')">Play</button>
+        </div>
+      </article>
+
+      <article class="game" data-name="Wildlands"
+        data-category="Survival">
+        <div class="game-art art-2">🌲</div>
+        <div class="game-info">
+          <h3>Wildlands</h3>
+          <p>Survival · Coming soon</p>
+          <button onclick="playGame('wildlands')">Play</button>
+        </div>
+      </article>
+
+      <article class="game" data-name="Speed City"
+        data-category="Racing">
+        <div class="game-art art-3">🏎️</div>
+        <div class="game-info">
+          <h3>Speed City</h3>
+          <p>Racing · Coming soon</p>
+          <button onclick="playGame('speed-city')">Play</button>
+        </div>
+      </article>
+
+      <article class="game" data-name="Build a City"
+        data-category="Simulation">
+        <div class="game-art art-4">🏙️</div>
+        <div class="game-info">
+          <h3>Build a City</h3>
+          <p>Simulation · Coming soon</p>
+          <button onclick="playGame('build-a-city')">Play</button>
+        </div>
+      </article>
+
+      <div class="empty" id="emptyMessage">
+        No games found. Try another search!
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="create">
+    <div class="hero">
+      <div class="eyebrow">BUILT BY YOU</div>
+      <h1>Create something amazing.</h1>
+      <p>
+        Have an idea for a game? Your imagination
+        is the only limit.
+      </p>
+      <button class="btn btn-primary"
+        onclick="alert('Creator tools coming soon!')">
+        Start creating →
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>© 2026 NEXORA. All rights reserved.</div>
+  <div>Made for creators and players.</div>
+</footer>
+
+<script>
+const searchInput = document.getElementById('searchInput');
+const games = [...document.querySelectorAll('.game')];
+const categories = [...document.querySelectorAll('.category')];
+const emptyMessage = document.getElementById('emptyMessage');
+
+let selectedCategory = 'All';
+
+function filterGames() {
+  const query = searchInput.value.toLowerCase();
+  let visible = 0;
+
+  games.forEach(game => {
+    const name = game.dataset.name.toLowerCase();
+    const category = game.dataset.category;
+
+    const matchesSearch = name.includes(query);
+    const matchesCategory =
+      selectedCategory === 'All' ||
+      category === selectedCategory;
+
+    const show = matchesSearch && matchesCategory;
+
+    game.style.display = show ? '' : 'none';
+
+    if (show) visible++;
+  });
+
+  emptyMessage.style.display =
+    visible === 0 ? 'block' : 'none';
+}
+
+searchInput.addEventListener('input', filterGames);
+
+categories.forEach(button => {
+  button.addEventListener('click', () => {
+    categories.forEach(b => b.classList.remove('active'));
+    button.classList.add('active');
+
+    selectedCategory = button.dataset.category;
+    filterGames();
+  });
+});
+
+function playGame(id) {
+  // Desktop client integration will go here.
+  alert('The game launcher is not available yet! Game ID: ' + id);
+}
+</script>
+
+</body>
+</html>
